@@ -15,7 +15,7 @@ const path =require("path");
   // Below code handles when users "visit" a page.
   // In each of the below cases the user is shown an HTML page of content
   // ---------------------------------------------------------------------------
-
+  //define the home page route
   router.get("*", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/index.html"));
   });

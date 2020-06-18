@@ -1,40 +1,41 @@
-const db = require("../db/db.json");
+const express = require("express")
+const router = express.Router();
 const fs = require("fs");
-const uuid = require("uuid/v4");
+const util = require("util");
 
-module.exports =(app)=> {
-    app.get("/api/notes", (request, response) => response.send(db));
-    
+const readFileAsyn = util.promisify(fs.readFile);
+const writeFileAsyn = util.promisify(fs.writeFile);
 
-    app.post("/api/notes", (request, response)=> {
+class Notes {
+    constructor() {
+        this.IdDum = 0;
+    }
+    read() {
+        return readFileAsyn("./db/db.json", "utf8");
+    }
+    write(note) {
+        return writeFileAsyn("./db/db.json", JSON.stringify(note))
+    }
+    getNotes() {
+        console.log("get notes")
+        return this.read().then(notes => {
+            console.log(notes)
+            let noteArray;
+            try {
+                noteArray = [].concat(JSON.parse(notes));
+            }
+            catch (err) {
+                noteArray = [];
+            }
+            return noteArray;
+        })
+    }
 
-        let noteId = uuid();
-        let newNote = {
-            id: noteId,
-            title: request.body.title,
-            text: request.body.text
-        };
-        fs.readFile("./db/db.json", "utf8", (err, data) => {
-            if (err) throw err;
-            const allNotes = JSON.parse(data);
-            allNotes.push(newNote);
 
-        fs.writeFile("./db/db.json", JSON.stringify(allNotes, null, 2), err => {
-            if (err) throw err;
-            response.send(db);
-            console.log("!!!Note Created Successfully!!!")
-            });
-        });
-    });
-
-    app.delete("./db/db.json", "utf8", (err, data) => {
-        let nodeId = req.params.id;
-        fs.readFile("./db")
-
-    })
 
 
 
 }
+
 
 
