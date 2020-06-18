@@ -6,7 +6,7 @@ const util = require("util");
 const readFileAsyn = util.promisify(fs.readFile);
 const writeFileAsyn = util.promisify(fs.writeFile);
 
-// class Note 
+// class Note  helping to build a note and make some manipulation 
 class Notes {
     //constructor 
     constructor() {
@@ -38,19 +38,35 @@ class Notes {
             return noteArray;
         })
     }
-
+    // function helping to add new note
     addNotes(note) {
-        console.log("add Notes");
+        console.log("!!! add Notes!!! ");
         const { title, text } = note;
         //each note willbe unique because off the ID number
         //helping to identify each note
-        const newNote = { title, text, id: ++this.IdDum}
+        const newNote = { title, text, id: ++this.IdDum }
+        return this.getNotes()
+            //The then() method returns a Promise. It takes up to two arguments: 
+            //callback functions for the success and failure cases of the Promise.
+            // this will retune an array of a note and waiting for a new note
+            .then(notes => [...notes, newNote])
+            // this will updated a the note liste or note file
+            .then(updateNotes => this.write(updateNotes))
+            // function to have a new note
+            .then(() => newNote)
+    }
+    // function helping to remove a delete a note.
+    removeNote(id) {
+        console.log("!!! Delete Notes !!!");
+        // identify the note need to be deleted
+        return this.getNotes()
+            //return the element of array using the filter  
+            .then(notes => notes.filter(note => note.id !== parseInt(id)))
+             // this will updated a the note liste or note file
+            .then(updateNotes=>this.write(updateNotes))
     }
 
-
-
-
 }
-
+module.exports = Notes;
 
 
