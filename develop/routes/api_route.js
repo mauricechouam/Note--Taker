@@ -1,25 +1,22 @@
-const express = require("express")
+const express = require("express");
 const router = express.Router();
-const fs = require("fs");
-const util = require("util");
-const note = require("../notes")
+const dbnotes = require("../db/notes");
 
-const readFileAsyn = util.promisify(fs.readFile);
-const writeFileAsyn = util.promisify(fs.writeFile);
+
 
 
 router.get("../notes", function(req, res){
-    notes.getNotes()
+    dbnotes.getNotes()
     .then(notes => res.json(notes))
     .catch(err => res.status(500).json(err));
 })
 router.post("../notes", function(req, res){
-    notes.addNotes(req.body)
+    dbnotes.addNotes(req.body)
     .then(notes => res.json(notes))
     .catch(err => res.status(500).json(err));
 })
 router.delete("../notes/:id", function(req, res){
-    notes.removeNote(req.params.id)
+    dbnotes.removeNote(req.params.id)
     .then(() => res.json({ok: true}))
     .catch(err => res.status(500).json(err));
 })

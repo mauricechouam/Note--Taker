@@ -1,16 +1,22 @@
-// class Note  helping to build a note and make some manipulation 
+// class Note  helping to build a note and make some manipulation
+const fs = require("fs");
+const util = require("util");
+const readFileAsyn = util.promisify(fs.readFile);
+const writeFileAsyn = util.promisify(fs.writeFile);
+
+// class note
 class Notes {
     //constructor 
     constructor() {
-        this.IdDum = 0;
+        this.IDnote = 0;
     }
     //read method will help to 
     read() {
-        return readFileAsyn("./db/db.json", "utf8");
+        return readFileAsyn("/db/db.json", "utf8");
     }
     //write method converts a JavaScript object or value to a JSON string
     write(note) {
-        return writeFileAsyn("./db/db.json", JSON.stringify(note))
+        return writeFileAsyn("/db/db.json", JSON.stringify(note))
     }
     //getnote Using to add notes and remove note
     getNotes() {
@@ -36,7 +42,7 @@ class Notes {
         const { title, text } = note;
         //each note willbe unique because off the ID number
         //helping to identify each note
-        const newNote = { title, text, id: ++this.IdDum }
+        const newNote = { title, text, id: ++this.IDnote }
         return this.getNotes()
             //The then() method returns a Promise. It takes up to two arguments: 
             //callback functions for the success and failure cases of the Promise.
@@ -47,7 +53,7 @@ class Notes {
             // function to have a new note
             .then(() => newNote)
     }
-    // function helping to remove a delete a note.
+    // function helping to remove or delete a note.
     removeNote(id) {
         console.log("!!! Delete Notes !!!");
         // identify the note need to be deleted
@@ -60,4 +66,4 @@ class Notes {
 
 }
 
-module.exports = Notes;
+module.exports = new Notes;
