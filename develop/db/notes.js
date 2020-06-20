@@ -12,11 +12,11 @@ class Notes {
     }
     //read method will help to 
     read() {
-        return readFileAsyn("/db/db.json", "utf8");
+        return readFileAsyn("db/db.json", "utf8");
     }
     //write method converts a JavaScript object or value to a JSON string
     write(note) {
-        return writeFileAsyn("/db/db.json", JSON.stringify(note))
+        return writeFileAsyn("db/db.json", JSON.stringify(note))
     }
     //getnote Using to add notes and remove note
     getNotes() {
@@ -66,4 +66,4 @@ class Notes {
 
 }
 
-module.exports = new Notes;
+module.exports = new Notes();
