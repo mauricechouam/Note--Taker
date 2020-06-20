@@ -1,4 +1,11 @@
 # Note-Taker
+## Table of Contents ##
+  * [Description](#Description)
+  * [User Story](#User_Story)
+  * [Business Context](#Business_Context)
+  * [Acceptance Criteria](#Acceptance_Criteria)
+  * [Deploying the Application](#Deploying_the_Application)
+  * [Helpful links](#Helpful_links)
 
 
 ## Description
@@ -46,6 +53,11 @@ Application should allow users to delete previously saved notes.
 ## Deploying the App
 
 You will not be able to deploy your server side code on GitHub pages. This app should be deployed on Heroku. Carefully follow the [Heroku Guide](../04-Supplemental/HerokuGuide.md) for getting your app deployed on Heroku.
+
+## Helpful links
+
+* [Express.js](https://expressjs.com/)
+* [Postman](https://www.getpostman.com/)
 
 - - -
 
